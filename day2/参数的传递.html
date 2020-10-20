@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app">
+<h3>数字:{{ number }},{{ name }}</h3>
+
+    <input type="button" value="点我" @click="change_number(78,'张园')">
+    <input type="button" value="点我2" @click="modify_number('aaa')">
+</div>
+<hr>
+<script>
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {
+            number:18,
+        },
+        methods:{
+            change_number(num,name,event){
+
+                console.log(num,name,event)
+                this.number = num
+                this.name = name//可以手动加属性
+            },
+            modify_number(name,event){
+                console.log(event)
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

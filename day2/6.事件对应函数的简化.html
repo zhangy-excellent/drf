@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app">
+<h3>年龄:{{ age }}</h3>
+<!--复杂写法-->
+<input type="button" value="点我长大" @click="grow_up">
+
+<!--简单写法-->
+    <input type="button" value="点我变年轻" @click="be_younger">
+</div>
+<hr>
+<script>
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {
+            age:20,
+        },
+        methods:{
+            //复杂写法
+            grow_up:function(){
+                this.age++
+            },
+            //简易写法
+            be_younger(){
+                this.age--
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

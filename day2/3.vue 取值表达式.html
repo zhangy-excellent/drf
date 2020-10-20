@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app" class="aa">
+{{ msg }}
+    <h3>{{ number*10.315461 }}</h3>
+<hr>
+<script>
+    new Vue({
+        el:".aa",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data:{
+            msg:'你好张园',
+            number:15
+        }
+    })
+</script>
+
+</body>
+</html>

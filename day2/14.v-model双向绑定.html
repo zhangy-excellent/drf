@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app">
+<input type="text" v-model="message">
+    <p>{{ message }}</p>
+</div>
+<hr>
+<script>
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {
+            message:"123",
+        }
+    })
+</script>
+
+</body>
+</html>

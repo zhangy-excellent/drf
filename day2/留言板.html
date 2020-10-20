@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app">
+
+<input type="text" v-model="msg">
+    <input type="button" value="发布留言" @click="add_content">
+<ul v-for="(value,index) in contents" :key="index">
+    <li>{{ value }}<a href="javascript:;" @click="delete_content(index)">删除</a></li>
+</ul>
+    <br>
+<span>留言总数量:{{ contents.length }}</span>
+    <br>
+<a v-show="show" href="javascript:;" @click="delete_allcontents">删除所有留言</a>
+</div>
+<hr>
+<script>
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {
+            msg:"",
+            contents:['楼下不是','我是大帅哥'],
+            total_contents:2,
+            show:true,
+        },
+        methods:{
+            add_content(){
+                if(this.msg){
+                    this.show = true
+                    this.contents.unshift(this.msg)
+
+                }
+
+            },
+            delete_content(index){
+                this.contents.splice(index,1)
+                if(this.contents.length == 0){
+                    this.show = false
+                }
+                else{
+                    this.show = true
+                }
+            },
+            delete_allcontents()
+            {
+                this.contents = []
+                this.show = false
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
