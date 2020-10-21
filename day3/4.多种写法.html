@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app">
+
+</div>
+<hr>
+<script>
+  //如果函数体中只有一条语句,{}可以省略
+    let app = (a,b) => console.log(a*b)
+    app(2,3)
+
+  //如果函数体的参数只有一个,可以省略()
+    let app1 = x => console.log(x*5)
+    app1(2)
+
+  //如果函数体中只有一条语句且还是return则return可以省略
+    let app3 = function (a,b) {
+        return a+b
+    }
+    console.log(app3(2,5))
+
+    let app4 = (a,b) => a+b
+    console.log(app4(10,8))
+
+    //函数体中只有一条语句且return,参数只有一个
+    let app5 = a => a*14
+    console.log(app5(10))
+
+    //如果函数没有参数,则()不可省略
+    let app6 = () => console.log('我没参数')
+    app6()
+</script>
+
+</body>
+</html>

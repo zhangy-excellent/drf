@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app">
+<coe></coe>
+</div>
+<hr>
+<script>
+
+    let com = {
+        template:
+        `
+        <div>测试组件的特性<button @click="change">我是一个转换按钮</button>
+        <div>我是嵌套div嘻嘻嘻----{{ number }}</div></div>
+        `,
+        data:function(){
+          return {
+              number:40
+          }
+        },
+        methods:{
+            change(){
+                this.number--
+            }
+        }
+    }
+
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {},
+        components:{
+            coe:com//左边的是到时候写到vue实例范围内的标签名,右边的是组件名
+        }
+    })
+</script>
+
+</body>
+</html>

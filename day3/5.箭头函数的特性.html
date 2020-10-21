@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app">
+
+</div>
+<hr>
+<script>
+
+    let user = {
+        username:"张园",
+        app:function () {
+            console.log(this.username)
+        }
+    }
+
+    let student = {
+        username:"许金",
+        app:function () {
+            //回调函数中会改变this的指向
+            setTimeout(function () {
+            console.log(this.username)
+            })
+        },
+    }
+    let students = {
+        username:"郑卓琳",
+        app:function () {
+            //箭头函数中不会改变this的指向
+            setTimeout(() => {
+            console.log(this.username)
+            })
+        },
+    }
+    students.app()
+    student.app()
+    user.app()
+
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {}
+    })
+</script>
+
+</body>
+</html>

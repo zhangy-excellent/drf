@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<div id="app">
+<p @click="low_num">{{ num }}</p>
+    <p>十位:</p>
+    <p>个位:</p>
+    <hr>
+    <input type="text" v-model="shi">
+    <input type="text" v-model="ge">
+    结果:<b>{{ result}}</b><br>
+    姓:<input type="text" v-model="lastname">
+    名:<input type="text" v-model="firstname">
+    姓名:<span>{{ name }}</span>
+</div>
+<hr>
+<script>
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {
+            num:10,
+            shi:'',
+            ge:'',
+            firstname:"园",
+            lastname:"张",
+
+
+        },
+        methods:{
+            low_num(){
+                this.num--
+            }
+        },
+        //1.computed用来声明方法属性
+        //2.声明的方法属性不能在data中重复定义
+        computed:{
+            result(){
+                return this.shi*10+ +this.ge;
+            },
+            name(){
+                return this.lastname + this.firstname;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

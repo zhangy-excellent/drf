@@ -1,0 +1,20 @@
+
+created:function () {
+            console.log('created:'+this.number)
+            console.log('created:'+this.change)
+
+        },
+
+        beforeMount:function () {
+            console.log("beforeMount:"+this.$el)
+        },
+        mounted:function () {
+            console.log("mounted:"+document.getElementById('span').innerText+this.$el)
+        },
+
+        beforeUpdated:function () {
+            console.log("beforeUpdated:"+document.getElementById('span').innerText+this.number)
+        },
+        updated:function () {
+            console.log("Updated:"+document.getElementById('span').innerText+this.number)
+        }
