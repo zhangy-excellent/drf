@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="js/vue.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<div id="app">
+我是主页头
+<router-view></router-view>
+</div>
+<hr>
+<script>
+
+    let first = {
+        template:`
+        <div>
+        我是组件1<br>
+         <input type="button" @click="change_page" value="点我">
+        </div>
+        `,
+        methods:{
+            change_page(){
+                console.log(11111)
+                this.$router.push({path:"/second/4/zhangyuan"})
+            }
+        }
+    }
+
+    let second = {
+        template:`
+        <div>
+        接收组件1传来的参数:<br>
+        组件1中的id为:{{ $route.params.id }},name为{{ $route.params.name }}
+        </div>
+        `
+    }
+
+    let myRouter = new VueRouter({
+        routes:[
+            {path:'/first',component:first},
+            {path:'/second/:id/:name',component:second},
+        ]
+    })
+
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {},
+        router:myRouter
+    })
+</script>
+
+</body>
+</html>

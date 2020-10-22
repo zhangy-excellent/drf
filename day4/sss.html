@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div id="app">
+<h3>这是主页的页头</h3>
+<router-link to="/first">访问系统首页</router-link>
+<router-link to="/second">访问用户页</router-link>
+    <hr>
+<router-view></router-view>
+<hr>
+</div>
+<hr>
+<script src="js/vue.min.js"></script>
+<!--依赖于vue.js才可以使用-->
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+
+    let first = {
+        template:`
+        <div>这是第一个组件</div>
+        `
+    }
+
+    let second = {
+        template:`
+        <div>这是第二个组件</div>
+        `
+    }
+
+    let myRouter = new VueRouter({
+        routes:[
+            {path:'/first',component:first},
+            {path:'/second',component:second},
+        ]
+    })
+
+    new Vue({
+        el: "#app",//用来定义vue的作用范围
+        //用来给vue实例定义一些相关的数据
+        data: {},
+        router:myRouter
+    })
+</script>
+
+</body>
+</html>
