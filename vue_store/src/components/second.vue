@@ -1,5 +1,8 @@
 <template>
-    $END$
+<div>
+    <span>这是组件2------>{{$store.state.count}}</span>
+
+</div>
 </template>
 
 <script>
