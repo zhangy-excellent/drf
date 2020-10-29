@@ -15,8 +15,8 @@
 <body>
 <script src="js/vue.min.js"></script>
 <div id="app">
-<com css="yellow"></com>
-<com css="green"></com>
+<com css="yellow" user="zy"></com>
+<com css="green" user="xj"></com>
 </div>
 <hr>
 <script>
@@ -28,7 +28,9 @@
         </div>
 
         `,
-        props:['css','user']
+        props:['css','user'],
+        created: function () {
+            console.log(this.user)}
     }
 
     new Vue({
