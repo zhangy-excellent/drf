@@ -259,7 +259,7 @@ class BookViewSetView(viewsets.GenericViewSet,mixins.ListModelMixin):#viewsets.G
     serializer_class = BookDeModelSerializerV2
     lookup_field = "pk"
     def user_login(self,request,*args,**kwargs):
-        print("登陆成功")
+        print("登陆成功")#s
         return Response("登陆成功")
 
     def get_user_count(self,request,*args,**kwargs):
