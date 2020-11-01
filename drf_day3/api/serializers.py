@@ -1,50 +1,93 @@
 from rest_framework import serializers
 
-from api.models import Teacher
-from drf_day2 import settings
+from api.models import Book, Press
+from drf_day3 import settings
 
+class PressModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Press
+        fields = ["press_name", "address"]
 
-class TeacherSerializer(serializers.Serializer):
-    #定义序列化器类
-    username = serializers.CharField()
-    password = serializers.CharField()
-    # gender = serializers.IntegerField()
-    phone = serializers.CharField()
-    # pic = serializers.ImageField()
-    gender = serializers.SerializerMethodField()
-    pic = serializers.SerializerMethodField()
+class BookModelSerializer(serializers.ModelSerializer):
+    # 自定义连表查询
+    # 必须是publish,必须是外键,否则报错,就是说这个publisher必须是当前表的外键,否则报错,或者底下的fields不显示publish也不行,也报错呢
+    publish = PressModelSerializer()  # 不加这句话之前就只显示1,2,3,之类的,加了以后,就显示上面那个类的fields里的东西
 
+    class Meta:
+        # 指定当前序列化器要序列化的模型
+        model = Book
+        # 比如说我只想要一个press_name
+        fields = ("book_name", "price", "publish", "press_name", "author_list","pic")
 
-    def get_gender(self,obj):
-        print(obj.get_gender_display())
-        return obj.get_gender_display()
+        # depth = 1 #不常用
+        # fields = "__all__"
+        # exclude = ("create_time",)#得加,
 
-    def get_pic(self,obj):
-        return "%s %s %s"%("http://127.0.0.1:8000/",settings.MEDIA_URL,str(obj.pic))
+class BookDeModelSerializer(serializers.ModelSerializer):
+    # 反序列化器
+    class Meta:
+        model = Book
+        fields = ("book_name", "price", "pic", "publish", "author")
 
-class TeacherDeSerializer(serializers.Serializer):
-    username = serializers.CharField(
-        max_length=3,
-        min_length=2,
-        error_messages={
-            "max_length":"太长啦",
-            "min_length":"太短啦",
+        # 添加DRF提供的默认校验,is_valid就是判断这个的
+        extra_kwargs = {
+            "book_name": {
+                "required": True,  # 必加字段,
+                "min_length": 2,  # 最小长度,
+                "error_messages": {
+                    "required": "图书名必须提供",  # 必加字段,
+                    "min_length": "图书名不能小于2个字符"
+                }
+            }
         }
-    )
-    password = serializers.CharField()
-    phone = serializers.CharField()
-    # gender = serializers.IntegerField()
-    # pic = serializers.ImageField()
 
-    def validate(self, attrs):#arrs是一个orderedDict类型的字典[(键,值),(),()]
-        print("先执行",attrs.get("username"))#attrs.get可以直接获得键对应的值
+    # 仍然支持全局钩子与局部钩子的使用
+
+    def validate(self, attrs):
+        print(1111111)
         return attrs
 
-    def validate_username(self,obj):
-        pass
-        print(obj,type(obj),21111111111)#此时的obj就是JSON的username
+    # 先执行局部钩子
+    def validate_book_name(self, obj):
+        print(2222222222)
         return obj
 
-    def create(self, validated_data):
-        print(self,validated_data)
-        return Teacher.objects.create(**validated_data)
+class BookListSerializer(serializers.ListSerializer):
+    def update(self, instance, validated_data):
+        print(instance)  # 要修改的实例
+        print(validated_data)  # 要修改的实例的值
+        for index, obj in enumerate(instance):
+            self.child.update(obj, validated_data[index])
+        return instance
+
+class BookDeModelSerializerV2(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ("book_name", "price", "publish", "press_name", "author_list", "pic", "author")
+        list_serializer_class = BookListSerializer
+
+        extra_kwargs = {
+            "book_name": {
+                "required": True,  # 必加字段,
+                "min_length": 2,  # 最小长度,
+                "error_messages": {
+                    "required": "图书名必须提供",  # 必加字段,
+                    "min_length": "图书名不能小于2个字符"
+                }
+            },
+            "press_name": {
+                "read_only": True
+            },
+
+            "author_list": {
+                "read_only": True
+            },
+
+            # "pic": {
+            #     "write_only": True
+            # },
+
+            "author": {
+                "write_only": True
+            }
+        }
